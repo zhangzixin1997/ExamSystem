@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zzx.mapper.AdminMapper">
+    <select id="selectAllUserData" resultType="User">
+        select *
+        from t_user
+        where user_type = 1;
+    </select>
+    <update id="deleteByStudent" parameterType="String">
+        update t_user
+        set user_type= 0
+        where student_id = #{studentId};
+    </update>
+    <update id="updateByStudentId" parameterType="String">
+        update t_user
+        set user_admin= 1
+        where student_id = #{studentId};
+    </update>
+    <select id="selectByData" resultType="Integer">
+        select user_admin from t_user where student_id=#{StudentId};
+    </select>
+    <delete id="deleteUser" >
+        delete from t_user where user_type=0;
+    </delete>
+    <delete id="deleteSingle" >
+        delete from s_choice where id=#{id};
+    </delete>
+    <delete id="deleteMany" >
+        delete from m_choice where id=#{id};
+    </delete>
+    <delete id="deleteJudge" >
+        delete from s_judge where id=#{id};
+    </delete>
+    <select id="jurisdictionSee" resultType="Integer">
+        select user_admin from t_user where student_id=#{studentId}
+    </select>
+    <delete id="deleteData">
+        delete from programme;
+    </delete>
+    <insert id="insertWeight" parameterType="Programme">
+        insert into programme (unit, single_count, many_count, judge_count)
+        values (#{unit},#{singleCount},#{manyCount},#{judgeCount});
+    </insert>
+</mapper>

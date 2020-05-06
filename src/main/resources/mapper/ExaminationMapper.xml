@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zzx.mapper.ExaminationMapper">
+    <select id="selectAllProgramme" resultType="Programme">
+        select *
+        from programme;
+    </select>
+    <select id="selectSingleId" resultType="Integer">
+        select *
+        from s_choice
+        where unit = #{unit};
+    </select>
+    <select id="selectManyId" resultType="Integer">
+        select *
+        from m_choice
+        where unit = #{unit};
+    </select>
+    <select id="selectJudgeId" resultType="Integer">
+        select *
+        from s_judge
+        where unit = #{unit};
+    </select>
+    <select id="selectByIdSingle" resultType="Question">
+        select *
+        from s_choice where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectByIdMany" resultType="Question">
+        select *
+        from m_choice where id in
+        <foreach collection="idSetAllMany" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectByIdJudge" resultType="Question">
+        select *
+        from s_judge where id in
+        <foreach collection="idSetAllJudge" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectByIdSingleAnswer" resultType="String">
+        select answer
+        from s_choice where id in
+        <foreach collection="selectByIdSingleAnswer" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectByIdManyAnswer" resultType="String">
+        select answer
+        from m_choice where id in
+        <foreach collection="selectByIdManyAnswer" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectByIdJudgeAnswer" resultType="String">
+        select answer
+        from s_judge where id in
+        <foreach collection="selectByIdJudgeAnswer" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+    <insert id="insertCTB" >
+        insert into s_ctb (id, title, A, B, C, D, answer, unit, studentId)
+        values(null,#{question.title},#{question.A},#{question.B},#{question.C},#{question.D},#{question.answer},#{question.unit},#{studentId});
+    </insert>
+
+
+</mapper>
