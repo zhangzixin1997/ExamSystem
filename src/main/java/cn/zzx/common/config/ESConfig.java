@@ -12,8 +12,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
 
-@Configuration
-@ConfigurationProperties("es")
+//@Configuration
+//@ConfigurationProperties("es")
 public class ESConfig {
     private List<String> nodes;
 

@@ -27,10 +27,10 @@ import java.util.List;
 public class IndexService {
     @Autowired
     private IndexMapper im;
-    @Autowired
-    private TransportClient client;
+//    @Autowired
+//    private TransportClient client;
 
-    public void createIndex(String indexName) throws JsonProcessingException {
+    /*public void createIndex(String indexName) throws JsonProcessingException {
         IndicesExistsResponse resp = client.admin().indices().prepareExists(indexName).get();
         if (!resp.isExists()) {
             //不存在创建
@@ -54,7 +54,7 @@ public class IndexService {
     public List<Question> query(String text) {
         MatchQueryBuilder query = QueryBuilders.matchQuery("title", text);
         SearchRequestBuilder req = client.prepareSearch("queindex");
-        SearchResponse resp = req.setQuery(query)/*.setFrom((page - 1) * rows).setSize(rows)*/.get();
+        SearchResponse resp = req.setQuery(query)*//*.setFrom((page - 1) * rows).setSize(rows)*//*.get();
         SearchHits hits = resp.getHits();
         List<Question> pList = new ArrayList<>();
         for (SearchHit hit : hits) {
@@ -68,6 +68,17 @@ public class IndexService {
             }
             pList.add(question);
         }
+        return pList;
+    }*/
+
+    public List<Question> query1(String query) {
+        List<Question> pList = new ArrayList<>();
+        List<Question> questions = im.query1("%" + query + "%");
+        List<Question> questions1 = im.query2("%" + query + "%");
+        List<Question> questions2 = im.query3("%" + query + "%");
+        pList.addAll(questions);
+        pList.addAll(questions1);
+        pList.addAll(questions2);
         return pList;
     }
 }

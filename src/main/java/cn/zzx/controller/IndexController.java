@@ -17,7 +17,7 @@ public class IndexController {
     private IndexService is;
 
     //访问接口创建索引
-    @RequestMapping("init/{indexName}")
+    /*@RequestMapping("init/{indexName}")
     public SysResult createIndex(@PathVariable String indexName) {
         try {
             is.createIndex(indexName);
@@ -28,8 +28,14 @@ public class IndexController {
         }
     }
 
-    @RequestMapping("query")
+    @RequestMapping("query1")
     public List<Question> query(String query) {
         return is.query(query);
+    }*/
+
+    @RequestMapping("query")
+    public List<Question> query1(String query) {
+        return is.query1(query);
     }
+
 }

@@ -12,4 +12,15 @@
     <select id="selectJudgeQuestion" resultType="Question">
         select * from s_judge;
     </select>
+
+    <select id="query1" resultType="Question">
+        select * from m_choice where title like #{query} ;
+    </select>
+    <select id="query2" resultType="Question">
+        select * from s_judge where title like #{query} ;
+    </select>
+    <select id="query3" resultType="Question">
+        select * from s_choice where title like #{query} ;
+    </select>
+
 </mapper>

@@ -8,17 +8,17 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
-@ConfigurationProperties(prefix="redis")
+@ConfigurationProperties(prefix = "redis")
 public class JedisPoolConfigBean {
     private String host;
     private Integer port;
-
+    private String pass;
 
 
     @Bean
     public Jedis initJedis() {
         JedisPoolConfig config = new JedisPoolConfig();
-        JedisPool jedisPool = new JedisPool(config, host, port);
+        JedisPool jedisPool = new JedisPool(config, host, port, 1000, pass);
         return jedisPool.getResource();
     }
 
@@ -38,7 +38,11 @@ public class JedisPoolConfigBean {
         this.port = port;
     }
 
+    public String getPass() {
+        return pass;
+    }
 
-
-
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
 }
