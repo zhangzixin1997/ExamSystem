@@ -1,5 +1,6 @@
 package cn.zzx.service;
 
+import cn.zzx.common.config.ApplicationProperties;
 import cn.zzx.common.pojo.Question;
 import cn.zzx.common.utils.UUIDUtil;
 import cn.zzx.mapper.SingleMapper;
@@ -18,6 +19,8 @@ import java.util.Scanner;
 public class SingleService {
     @Autowired
     SingleMapper sm;
+    @Autowired
+    ApplicationProperties applicationProperties;
 
     public void insertData(MultipartFile single) throws FileNotFoundException {
         String originalFilename = single.getOriginalFilename();
@@ -26,7 +29,7 @@ public class SingleService {
             if (!substringName.matches(".(txt)$")) {
                 throw new RuntimeException();
             }
-            String dir = "d://question/" + UUIDUtil.getUUID() + ".txt";
+            String dir = applicationProperties.getPath() + UUIDUtil.getUUID() + ".txt";
             single.transferTo(new File(dir));
             int len = -1;
             FileInputStream fileInputStream = new FileInputStream(new File(dir));

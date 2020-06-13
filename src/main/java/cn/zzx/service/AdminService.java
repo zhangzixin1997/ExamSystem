@@ -1,5 +1,6 @@
 package cn.zzx.service;
 
+import cn.zzx.common.config.ApplicationProperties;
 import cn.zzx.common.pojo.Programme;
 import cn.zzx.common.pojo.Question;
 import cn.zzx.common.pojo.User;
@@ -20,6 +21,8 @@ import java.util.Scanner;
 public class AdminService {
     @Autowired
     AdminMapper am;
+    @Autowired
+    ApplicationProperties applicationProperties;
 
     //查询用户数据
     public List<User> selectAllUserData() {
@@ -83,7 +86,7 @@ public class AdminService {
             if (!substringName.matches(".(txt)$")) {
                 throw new RuntimeException();
             }
-            String dir = "d://question/" + UUIDUtil.getUUID() + ".txt";
+            String dir = applicationProperties.getPath() + UUIDUtil.getUUID() + ".txt";
             file.transferTo(new File(dir));
             FileInputStream fileInputStream = new FileInputStream(new File(dir));
             Scanner scanner = new Scanner(fileInputStream);

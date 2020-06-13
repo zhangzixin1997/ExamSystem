@@ -1,5 +1,6 @@
 package cn.zzx.service;
 
+import cn.zzx.common.config.ApplicationProperties;
 import cn.zzx.common.pojo.Question;
 import cn.zzx.common.utils.UUIDUtil;
 import cn.zzx.mapper.JudgeMapper;
@@ -16,6 +17,8 @@ import java.util.Scanner;
 public class JudgeService {
     @Autowired
     JudgeMapper sm;
+    @Autowired
+    ApplicationProperties applicationProperties;
 
     public void insertData(MultipartFile judge) {
 
@@ -25,7 +28,7 @@ public class JudgeService {
             if (!substringName.matches(".(txt)$")) {
                 throw new RuntimeException();
             }
-            String dir = "d://question/" + UUIDUtil.getUUID() + ".txt";
+            String dir = applicationProperties.getPath() + UUIDUtil.getUUID() + ".txt";
             judge.transferTo(new File(dir));
 
             int len = -1;

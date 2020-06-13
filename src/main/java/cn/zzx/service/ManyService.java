@@ -1,5 +1,6 @@
 package cn.zzx.service;
 
+import cn.zzx.common.config.ApplicationProperties;
 import cn.zzx.common.pojo.Question;
 import cn.zzx.common.utils.UUIDUtil;
 
@@ -17,6 +18,8 @@ import java.util.Scanner;
 public class ManyService {
     @Autowired
     ManyMapper sm;
+    @Autowired
+    ApplicationProperties applicationProperties;
 
     public void insertData(MultipartFile many) {
 
@@ -26,7 +29,7 @@ public class ManyService {
             if (!substringName.matches(".(txt)$")) {
                 throw new RuntimeException();
             }
-            String dir = "d://question/" + UUIDUtil.getUUID() + ".txt";
+            String dir = applicationProperties.getPath() + UUIDUtil.getUUID() + ".txt";
             many.transferTo(new File(dir));
 
             int len = -1;
